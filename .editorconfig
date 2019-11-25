@@ -1,0 +1,26 @@
+# editorconfig.org
+
+# This allow you to have a ~/.editorconfig that defines missing properties (e.g. indent_size)
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+
+# On save, removes trailing whitespace
+trim_trailing_whitespace = true
+
+# On save, adds the final newline character.
+# It's required for some unix command to work:
+# % echo 'toto' | wc -l
+# 1
+# % echo -n 'toto' | wc -l
+# 0
+# In a git diff, no final newline generates the "No newline at end of file" message
+# This is not a bug, just a message by git.
+insert_final_newline = true
+
+[*.md]
+indent_style = space
