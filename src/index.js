@@ -1,8 +1,7 @@
-import lunchtime from './lunchtime.js';
-import millisecondsUntil from './millisecondsUntil.js';
-import ms from 'ms';
+import VASTXmlConverter from './vast-xml-converter';
 
-export default function howLongUntilLunch(hours = 12, minutes = 30) {
-	const millisecondsUntilLunchTime = millisecondsUntil(lunchtime(hours, minutes));
-	return ms(millisecondsUntilLunchTime, { long: true });
-}
+const index = {
+  VASTXmlConverter
+};
+
+export default index;
