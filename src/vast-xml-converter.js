@@ -1,10 +1,12 @@
+import {AD_STRUCTURE, CREATIVE_TYPES, TRACKING_EVENTS} from './consts';
+
 import VASTBuilder from 'vast-xml';
 
 export default class VASTXmlConverter {
 
-  attachMediaFiles(vastClientCreative, mediaFiles) {
+  attachMediaFiles(vastBuilderCreative, mediaFiles) {
     mediaFiles.forEach((file) => {
-      vastClientCreative.attachMediaFile(file.fileURL, {
+      vastBuilderCreative.attachMediaFile(file.fileURL, {
         id: file.id,
         type: file.mimeType,
         bitrate: file.bitrate,
@@ -18,35 +20,65 @@ export default class VASTXmlConverter {
         apiFramework: file.apiFramework
       });
     });
-
   }
 
-  attachCreatives(vastClientAd, creatives) {
+  parseEventDuration(eventName) {
+    return parseInt(eventName.match(/\d+/));
+  }
+
+  formatDuration(duration) {
+    // TODO: implement proper formatting for minutes and hours
+    return `00:00:${duration}`;
+  }
+
+  addTrackingEvent(vastBuilderCreative, eventName, urls) {
+    urls.forEach(url => {
+      const duration = this.parseEventDuration(eventName);
+
+      if (duration) {
+        vastBuilderCreative.attachTrackingEvent(TRACKING_EVENTS.PROGRESS, url, this.formatDuration(duration));
+      } else {
+        vastBuilderCreative.attachTrackingEvent(eventName, url);
+      }
+    });
+  }
+
+  attachTrackingEvents(creative, trackingEvents) {
+    Object.entries(trackingEvents).forEach(([name, urls]) => {
+      this.addTrackingEvent(creative, name, urls);
+    });
+  }
+
+  attachCreatives(vastBuilderAd, creatives) {
     creatives.forEach(creative => {
-      const vastClientCreative = vastClientAd.attachCreative('Linear', {
-        Duration: `00:00:${creative.duration}`
+      const vastBuilderCreative = vastBuilderAd.attachCreative(CREATIVE_TYPES.LINEAR, {
+        Duration: this.formatDuration(creative.duration)
       });
 
-      this.attachMediaFiles(vastClientCreative, creative.mediaFiles);
+      this.attachMediaFiles(vastBuilderCreative, creative.mediaFiles);
+      this.attachTrackingEvents(vastBuilderCreative, creative.trackingEvents);
     });
   }
 
   attachAds(builder, ads) {
     ads.forEach(ad => {
-      const vastAd = builder.attachAd({
+      const vastBuilderAd = builder.attachAd({
         id: ad.id,
-        structure: 'inline',
+        structure: AD_STRUCTURE,
         sequence: ad.sequence,
-        Error: 'http://error.err',
         AdTitle: ad.title,
-        AdSystem: { name: 'Test Ad Server', version: '1.0' }
+        AdSystem: {
+          name: ad.system.value,
+          version: ad.system.version
+        }
       });
 
-      this.attachCreatives(vastAd, ad.creatives);
+      this.attachCreatives(vastBuilderAd, ad.creatives);
     });
   }
 
-  convert(ads) {
+  convert(vastClientResponse) {
+    const { ads } = vastClientResponse;
     const builder = new VASTBuilder();
 
     this.attachAds(builder, ads);
