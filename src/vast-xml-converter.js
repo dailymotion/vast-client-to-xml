@@ -60,12 +60,22 @@ export default class VASTXmlConverter {
     });
   }
 
+  attachImpressionsUrls(vastBuilderAd, impressionsUrls = []) {
+    impressionsUrls.forEach((url, index) => {
+      // TODO: Impression ID should be changed to unique value provided by vast-client
+      vastBuilderAd.attachImpression({ id: index, url });
+    });
+  }
+
   attachAds(builder, ads) {
     ads.forEach(ad => {
+      const [errorUrl] = ad.errorURLTemplates;
+
       const vastBuilderAd = builder.attachAd({
         id: ad.id,
         structure: AD_STRUCTURE,
         sequence: ad.sequence,
+        Error: errorUrl,
         AdTitle: ad.title,
         AdSystem: {
           name: ad.system.value,
@@ -73,6 +83,8 @@ export default class VASTXmlConverter {
         }
       });
 
+
+      this.attachImpressionsUrls(vastBuilderAd, ad.impressionURLTemplates)
       this.attachCreatives(vastBuilderAd, ad.creatives);
     });
   }

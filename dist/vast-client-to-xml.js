@@ -153,21 +153,39 @@ function () {
       });
     }
   }, {
+    key: "attachImpressionsUrls",
+    value: function attachImpressionsUrls(vastBuilderAd) {
+      var impressionsUrls = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      impressionsUrls.forEach(function (url, index) {
+        // TODO: Impression ID should be changed to unique value provided by vast-client
+        vastBuilderAd.attachImpression({
+          id: index,
+          url: url
+        });
+      });
+    }
+  }, {
     key: "attachAds",
     value: function attachAds(builder, ads) {
       var _this4 = this;
 
       ads.forEach(function (ad) {
+        var _ad$errorURLTemplates = _slicedToArray(ad.errorURLTemplates, 1),
+            errorUrl = _ad$errorURLTemplates[0];
+
         var vastBuilderAd = builder.attachAd({
           id: ad.id,
           structure: AD_STRUCTURE,
           sequence: ad.sequence,
+          Error: errorUrl,
           AdTitle: ad.title,
           AdSystem: {
             name: ad.system.value,
             version: ad.system.version
           }
         });
+
+        _this4.attachImpressionsUrls(vastBuilderAd, ad.impressionURLTemplates);
 
         _this4.attachCreatives(vastBuilderAd, ad.creatives);
       });
