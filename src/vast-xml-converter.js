@@ -52,7 +52,8 @@ export default class VASTXmlConverter {
   attachCreatives(vastBuilderAd, creatives) {
     creatives.forEach(creative => {
       const vastBuilderCreative = vastBuilderAd.attachCreative(CREATIVE_TYPES.LINEAR, {
-        Duration: this.formatDuration(creative.duration)
+        Duration: this.formatDuration(creative.duration),
+        AdParameters: creative.adParameters
       });
 
       this.attachMediaFiles(vastBuilderCreative, creative.mediaFiles);
