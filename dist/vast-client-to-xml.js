@@ -144,7 +144,8 @@ function () {
 
       creatives.forEach(function (creative) {
         var vastBuilderCreative = vastBuilderAd.attachCreative(CREATIVE_TYPES.LINEAR, {
-          Duration: _this3.formatDuration(creative.duration)
+          Duration: _this3.formatDuration(creative.duration),
+          AdParameters: creative.adParameters
         });
 
         _this3.attachMediaFiles(vastBuilderCreative, creative.mediaFiles);
