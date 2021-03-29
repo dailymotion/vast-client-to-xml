@@ -3,7 +3,7 @@ import { create } from 'xmlbuilder2'
 export default class VASTClientSerializer {
 
   /**
-   * Serialize the given Vast-client parsed object into XML
+   * Serialize the given VAST-Client parsed object into XML
    * For detail about the data structure to pass see
    * https://github.com/dailymotion/vast-client-js/blob/master/docs/api/class-reference.md
    * @param {Object} parsedVast The VAST-Client parsed VAST object
@@ -46,7 +46,7 @@ export default class VASTClientSerializer {
     return {
       '@id': ad.id,
       '@sequence': ad.sequence,
-      // '@conditionalAd': no current support in vast-client
+      // '@conditionalAd': no current support in VAST-Client
       '@adType': ad.adType,
       'Inline': this.buildInline(ad),
     }
@@ -142,7 +142,7 @@ export default class VASTClientSerializer {
     }
 
     return {
-      // '@type': '', Not supported by vast-client and deprecated
+      // '@type': '', Not supported by VAST-Client and deprecated
       '#': this.wrapCDATA(survey),
     }
   }
@@ -198,7 +198,7 @@ export default class VASTClientSerializer {
 
     let resource = null
     // Type or language are specific to ExecutableResource.
-    // Vast-client doesn't currently support language parameter so it will always go to the next statement
+    // VAST-Client doesn't currently support language parameter so it will always go to the next statement
     if (adVerification.language) {
       resource = {
         'ExecutableResource': {
@@ -569,10 +569,11 @@ export default class VASTClientSerializer {
             'IconClickTracking': icon.iconClickTrackingURLTemplates.map((iconClickTrackingURLTemplate) => {
               return {
                 '@id': iconClickTrackingURLTemplate.id,
-                '#': this.wrapCDATA(iconClickTrackingURLTemplate.url), // TODO verify
+                '#': this.wrapCDATA(iconClickTrackingURLTemplate.url),
               }
             }),
-            /* NonLinearClickTracking
+            /* NonLinearClickTracking is not supported by the VAST-Client for the moment
+             NonLinearClickTracking
             'IconClickFallbackImages': {
               'IconClickFallbackImage': icon.iconClickFallbackURLTemplates.map((iconClickFallbackURLTemplate) => {
                 return {
