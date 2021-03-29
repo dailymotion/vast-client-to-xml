@@ -1,7 +1,8 @@
-import VASTXmlConverter from './vast-xml-converter';
+
+import VASTClientSerializer from './vast-client-serializer';
 
 const index = {
-  VASTXmlConverter
+  VASTClientSerializer
 };
 
 export default index;
