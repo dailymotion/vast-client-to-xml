@@ -48,16 +48,16 @@ export default class VASTClientSerializer {
       '@sequence': ad.sequence,
       // '@conditionalAd': no current support in VAST-Client
       '@adType': ad.adType,
-      'Inline': this.buildInline(ad),
+      'InLine': this.buildInLine(ad),
     }
   }
 
   /**
-   * Build an Inline node object
+   * Build an InLine node object
    * @param {Object} ad An ad object
-   * @returns {Object} An Inline node
+   * @returns {Object} An InLine node
    */
-  buildInline(ad) {
+  buildInLine(ad) {
     const impressions = ad.impressionURLTemplates.map((impressionTemplate) => {
       return {
         '@id': impressionTemplate.id,
@@ -101,7 +101,7 @@ export default class VASTClientSerializer {
   /**
    * Build an Advertiser node object
    * @param {Object} advertiser An advertiser object
-   * @returns {Object} An Inline node
+   * @returns {Object} An Advertiser node
    */
   buildAdvertiser(advertiser) {
     if (!advertiser || !advertiser.value) {

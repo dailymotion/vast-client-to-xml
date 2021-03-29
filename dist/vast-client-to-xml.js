@@ -191,18 +191,18 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         '@sequence': ad.sequence,
         // '@conditionalAd': no current support in VAST-Client
         '@adType': ad.adType,
-        'Inline': this.buildInline(ad)
+        'InLine': this.buildInLine(ad)
       };
     }
     /**
-     * Build an Inline node object
+     * Build an InLine node object
      * @param {Object} ad An ad object
-     * @returns {Object} An Inline node
+     * @returns {Object} An InLine node
      */
 
   }, {
-    key: "buildInline",
-    value: function buildInline(ad) {
+    key: "buildInLine",
+    value: function buildInLine(ad) {
       var _this2 = this;
 
       var impressions = ad.impressionURLTemplates.map(function (impressionTemplate) {
@@ -244,7 +244,7 @@ var VASTClientSerializer = /*#__PURE__*/function () {
     /**
      * Build an Advertiser node object
      * @param {Object} advertiser An advertiser object
-     * @returns {Object} An Inline node
+     * @returns {Object} An Advertiser node
      */
 
   }, {
