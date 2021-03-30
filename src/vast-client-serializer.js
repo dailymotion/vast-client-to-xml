@@ -415,11 +415,15 @@ export default class VASTClientSerializer {
     let videoClicks = {}
 
     if (clickThrough) {
+      const clickThroughObj = clickThrough === Object ? clickThrough : {
+        url: clickThrough,
+      }
+
       videoClicks = {
         ...videoClicks,
         'ClickThrough': {
-          '@id': clickThrough.id,
-          '#': this.wrapCDATA(clickThrough.url),
+          '@id': clickThroughObj.id,
+          '#': this.wrapCDATA(clickThroughObj.url),
         }
       }
     }

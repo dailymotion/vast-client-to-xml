@@ -603,10 +603,13 @@ var VASTClientSerializer = /*#__PURE__*/function () {
       var videoClicks = {};
 
       if (clickThrough) {
+        var clickThroughObj = clickThrough === Object ? clickThrough : {
+          url: clickThrough
+        };
         videoClicks = _objectSpread2(_objectSpread2({}, videoClicks), {}, {
           'ClickThrough': {
-            '@id': clickThrough.id,
-            '#': this.wrapCDATA(clickThrough.url)
+            '@id': clickThroughObj.id,
+            '#': this.wrapCDATA(clickThroughObj.url)
           }
         });
       }
