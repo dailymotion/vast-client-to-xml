@@ -230,6 +230,8 @@ export default class VASTClientSerializer {
   buildTrackingEvents(events) {
     let trackingArray = []
     Object.entries(events).forEach(([key, urls]) => {
+      // Some event have the offset append to the name (ie: progress-15)
+      // We need to split it in order to put them in the right place
       const event = key.split('-')
       trackingArray = trackingArray.concat(urls.map((url) => {
         return {
@@ -415,7 +417,7 @@ export default class VASTClientSerializer {
     let videoClicks = {}
 
     if (clickThrough) {
-      const clickThroughObj = clickThrough === Object ? clickThrough : {
+      const clickThroughObj = typeof clickThrough === 'object' ? clickThrough : {
         url: clickThrough,
       }
 
@@ -679,6 +681,11 @@ export default class VASTClientSerializer {
   convertToHHMMSS(number) {
     if (!number) {
       return null
+    }
+
+    // Some values are in percentage, we don't need to convert them
+    if (typeof number === 'string' && number.endsWith('%')) {
+      return number
     }
 
     const measuredTime = new Date(null)

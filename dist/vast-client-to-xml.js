@@ -2,6 +2,22 @@
 
 var xmlbuilder2 = require('xmlbuilder2');
 
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -393,6 +409,8 @@ var VASTClientSerializer = /*#__PURE__*/function () {
             key = _ref2[0],
             urls = _ref2[1];
 
+        // Some event have the offset append to the name (ie: progress-15)
+        // We need to split it in order to put them in the right place
         var event = key.split('-');
         trackingArray = trackingArray.concat(urls.map(function (url) {
           return {
@@ -603,7 +621,7 @@ var VASTClientSerializer = /*#__PURE__*/function () {
       var videoClicks = {};
 
       if (clickThrough) {
-        var clickThroughObj = clickThrough === Object ? clickThrough : {
+        var clickThroughObj = _typeof(clickThrough) === 'object' ? clickThrough : {
           url: clickThrough
         };
         videoClicks = _objectSpread2(_objectSpread2({}, videoClicks), {}, {
@@ -877,6 +895,11 @@ var VASTClientSerializer = /*#__PURE__*/function () {
     value: function convertToHHMMSS(number) {
       if (!number) {
         return null;
+      } // Some values are in percentage, we don't need to convert them
+
+
+      if (typeof number === 'string' && number.endsWith('%')) {
+        return number;
       }
 
       var measuredTime = new Date(null);
