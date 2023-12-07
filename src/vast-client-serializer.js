@@ -617,6 +617,10 @@ export default class VASTClientSerializer {
           'StaticResource': this.wrapCDATA(variation.staticResource),
           'HTMLResource': this.wrapCDATA(variation.htmlResources),
           'IFrameResource': this.wrapCDATA(variation.iframeResource),
+          'AdParameters': this.buildAdParameters(
+            variation.adParameters,
+            variation.xmlEncoded
+          ),
           'NonLinearClickThrough': this.wrapCDATA(variation.nonlinearClickThroughURLTemplate),
           'NonLinearClickTracking': variation.nonlinearClickTrackingURLTemplates.map((nonlinearClickTrackingURLTemplate) => {
             return this.wrapCDATA(nonlinearClickTrackingURLTemplate.url)
@@ -655,6 +659,10 @@ export default class VASTClientSerializer {
           'IFrameResource': variation.htmlResources.map((htmlResource) => {
             return this.wrapCDATA(htmlResource.url)
           }),
+          'AdParameters': this.buildAdParameters(
+            variation.adParameters,
+            variation.xmlEncoded
+          ),
           'HTMLResource': variation.iframeResources.map((iframeResource) => {
             return this.wrapCDATA(iframeResource.url)
           }),
