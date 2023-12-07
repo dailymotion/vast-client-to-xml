@@ -659,10 +659,6 @@ export default class VASTClientSerializer {
           'IFrameResource': variation.htmlResources.map((htmlResource) => {
             return this.wrapCDATA(htmlResource.url)
           }),
-          'AdParameters': this.buildAdParameters(
-            variation.adParameters,
-            variation.xmlEncoded
-          ),
           'HTMLResource': variation.iframeResources.map((iframeResource) => {
             return this.wrapCDATA(iframeResource.url)
           }),
