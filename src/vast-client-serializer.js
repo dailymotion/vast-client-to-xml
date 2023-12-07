@@ -409,18 +409,17 @@ export default class VASTClientSerializer {
   /**
    * Build staticResource node
    * @param {String} staticResource The staticResource string
-   * @param {Boolean} xmlEncoded The type parameter
+   * @param {Boolean} creativeType The creativeType parameter
    * @returns {Object} A staticResource node
    */
-
   buildStaticRessource(staticResource,creativeType = null){
     if(!staticResource){
       return null
     }
 
     return{
-      '@creativeType' : creativeType,
-      '#' : this.wrapCDATA(staticResource)
+      '@creativeType': creativeType,
+      '#': this.wrapCDATA(staticResource)
     }
   }
 
