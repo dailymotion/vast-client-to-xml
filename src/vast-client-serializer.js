@@ -407,6 +407,22 @@ export default class VASTClientSerializer {
   }
 
   /**
+   * Build staticResource node
+   * @param {String} staticResource The staticResource string
+   * @param {String} creativeType The creativeType parameter
+   * @returns {Object} A staticResource node
+   */
+  buildStaticRessource(staticResource, creativeType) {
+    if (!staticResource) {
+      return null
+    }
+    return {
+      '@creativeType': creativeType,
+      '#': this.wrapCDATA(staticResource)
+    }
+  }
+
+  /**
    * Build VideoClicks parameter node
    * @param {Object} clickThrough The clickThrough object
    * @param {Array[Object]} clickTrackings The array of clickTracking objects
@@ -614,9 +630,13 @@ export default class VASTClientSerializer {
           '@maintainAspectRatio': variation.maintainAspectRatio,
           '@minSuggestedDuration': this.convertToHHMMSS(variation.minSuggestedDuration),
           '@apiFramework': variation.apiFramework,
-          'StaticResource': this.wrapCDATA(variation.staticResource),
+          'StaticResource': this.buildStaticRessource(variation.staticResource, variation.type),
           'HTMLResource': this.wrapCDATA(variation.htmlResources),
           'IFrameResource': this.wrapCDATA(variation.iframeResource),
+          'AdParameters': this.buildAdParameters(
+            variation.adParameters,
+            variation.xmlEncoded
+          ),
           'NonLinearClickThrough': this.wrapCDATA(variation.nonlinearClickThroughURLTemplate),
           'NonLinearClickTracking': variation.nonlinearClickTrackingURLTemplates.map((nonlinearClickTrackingURLTemplate) => {
             return this.wrapCDATA(nonlinearClickTrackingURLTemplate.url)
