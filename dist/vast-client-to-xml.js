@@ -606,6 +606,25 @@ var VASTClientSerializer = /*#__PURE__*/function () {
       };
     }
     /**
+     * Build staticResource node
+     * @param {String} staticResource The staticResource string
+     * @param {String} creativeType The creativeType parameter
+     * @returns {Object} A staticResource node
+     */
+
+  }, {
+    key: "buildStaticRessource",
+    value: function buildStaticRessource(staticResource, creativeType) {
+      if (!staticResource) {
+        return null;
+      }
+
+      return {
+        '@creativeType': creativeType,
+        '#': this.wrapCDATA(staticResource)
+      };
+    }
+    /**
      * Build VideoClicks parameter node
      * @param {Object} clickThrough The clickThrough object
      * @param {Array[Object]} clickTrackings The array of clickTracking objects
@@ -822,9 +841,10 @@ var VASTClientSerializer = /*#__PURE__*/function () {
             '@maintainAspectRatio': variation.maintainAspectRatio,
             '@minSuggestedDuration': _this12.convertToHHMMSS(variation.minSuggestedDuration),
             '@apiFramework': variation.apiFramework,
-            'StaticResource': _this12.wrapCDATA(variation.staticResource),
+            'StaticResource': _this12.buildStaticRessource(variation.staticResource, variation.type),
             'HTMLResource': _this12.wrapCDATA(variation.htmlResources),
             'IFrameResource': _this12.wrapCDATA(variation.iframeResource),
+            'AdParameters': _this12.buildAdParameters(variation.adParameters, variation.xmlEncoded),
             'NonLinearClickThrough': _this12.wrapCDATA(variation.nonlinearClickThroughURLTemplate),
             'NonLinearClickTracking': variation.nonlinearClickTrackingURLTemplates.map(function (nonlinearClickTrackingURLTemplate) {
               return _this12.wrapCDATA(nonlinearClickTrackingURLTemplate.url);
