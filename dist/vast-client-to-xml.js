@@ -2,155 +2,123 @@
 
 var xmlbuilder2 = require('xmlbuilder2');
 
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function (obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function (obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
 }
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
   }
 }
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
 }
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
+function _defineProperty(e, r, t) {
+  return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
 }
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
-
-  if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
-    keys.push.apply(keys, symbols);
-  }
-
-  return keys;
-}
-
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-
-    if (i % 2) {
-      ownKeys(Object(source), true).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      });
-    } else if (Object.getOwnPropertyDescriptors) {
-      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-      ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-  }
-
-  return target;
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
     try {
-      if (!_n && _i["return"] != null) _i["return"]();
+      if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
     } finally {
-      if (_d) throw _e;
+      try {
+        if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
     }
+    return a;
   }
-
-  return _arr;
 }
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
 function _nonIterableRest() {
   throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function ownKeys(e, r) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread2(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+    });
+  }
+  return e;
+}
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+}
+function _toPrimitive(t, r) {
+  if ("object" != typeof t || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r);
+    if ("object" != typeof i) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (String )(t);
+}
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == typeof i ? i : i + "";
+}
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
 }
 
 var VASTClientSerializer = /*#__PURE__*/function () {
   function VASTClientSerializer() {
     _classCallCheck(this, VASTClientSerializer);
   }
-
-  _createClass(VASTClientSerializer, [{
+  return _createClass(VASTClientSerializer, [{
     key: "serialize",
     value:
     /**
@@ -168,17 +136,16 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         format: 'xml'
       });
     }
+
     /**
      * Build the root VAST node object
      * @param {Object} parsedVast The VAST-Client parsed VAST object
      * @returns {Object} The VAST node
      */
-
   }, {
     key: "buildVast",
     value: function buildVast(parsedVast) {
       var _this = this;
-
       var ads = parsedVast.ads.map(function (ad) {
         return _this.buildAd(ad);
       });
@@ -193,12 +160,12 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         }
       };
     }
+
     /**
      * Build an Ad node object
      * @param {Object} ad An ad object
      * @returns {Object} An ad node
      */
-
   }, {
     key: "buildAd",
     value: function buildAd(ad) {
@@ -210,17 +177,16 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         'InLine': this.buildInLine(ad)
       };
     }
+
     /**
      * Build an InLine node object
      * @param {Object} ad An ad object
      * @returns {Object} An InLine node
      */
-
   }, {
     key: "buildInLine",
     value: function buildInLine(ad) {
       var _this2 = this;
-
       var impressions = ad.impressionURLTemplates.map(function (impressionTemplate) {
         return {
           '@id': impressionTemplate.id,
@@ -257,74 +223,70 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         'Creatives': this.buildCreatives(ad.creatives)
       };
     }
+
     /**
      * Build an Advertiser node object
      * @param {Object} advertiser An advertiser object
      * @returns {Object} An Advertiser node
      */
-
   }, {
     key: "buildAdvertiser",
     value: function buildAdvertiser(advertiser) {
       if (!advertiser || !advertiser.value) {
         return null;
       }
-
       return {
         '@id': advertiser.id || null,
         '#': advertiser.value
       };
     }
+
     /**
      * Build a Pricing node object
      * @param {Object} pricing A pricing object
      * @returns {Object} A Pricing node
      */
-
   }, {
     key: "buildPricing",
     value: function buildPricing(pricing) {
       if (!pricing || !pricing.value) {
         return null;
       }
-
       return {
         '@model': pricing.model,
         '@currency': pricing.currency,
         '#': this.wrapCDATA(pricing === null || pricing === void 0 ? void 0 : pricing.value)
       };
     }
+
     /**
      * Build a Survey node object
      * @param {Object} survey A survey object
      * @returns {Object} A Pricing node
      */
-
   }, {
     key: "buildSurvey",
     value: function buildSurvey(survey) {
       if (!survey) {
         return null;
       }
-
       return {
         // '@type': '', Not supported by VAST-Client and deprecated
         '#': this.wrapCDATA(survey)
       };
     }
+
     /**
      * Build a ViewableImpression node object
      * @param {Object} viewableImpression A viewableImpression object
      * @returns {Object} A ViewableImpression node
      */
-
   }, {
     key: "buildViewableImpression",
     value: function buildViewableImpression(viewableImpression) {
       if (!viewableImpression) {
         return null;
       }
-
       return {
         '@id': viewableImpression.id,
         'Viewable': this.wrapCDATA(viewableImpression.viewable),
@@ -332,21 +294,19 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         'ViewUndetermined': this.wrapCDATA(viewableImpression.viewundetermined)
       };
     }
+
     /**
      * Build a AdVerifications node object
      * @param {Array[Object]} adVerifications An array of adVerification objects
      * @returns {Object} An AdVerifications node
      */
-
   }, {
     key: "buildAdVerifications",
     value: function buildAdVerifications(adVerifications) {
       var _this3 = this;
-
       if (!adVerifications) {
         return null;
       }
-
       return {
         'Verification': adVerifications.map(function (adVerification) {
           return _objectSpread2({
@@ -357,20 +317,21 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         })
       };
     }
+
     /**
      * Build either a ExecutableResource or JavaScriptResource node object
      * @param {Object} adVerification An adVerification objects
      * @returns {Object} Either a ExecutableResource or JavaScriptResource node
      */
-
   }, {
     key: "buildResource",
     value: function buildResource(adVerification) {
       // Can't determine if it's a ExecutableResource or JavaScriptResource from the parsed Object
       // So I need to rely on the attributes
-      var resource = null; // Type or language are specific to ExecutableResource.
-      // VAST-Client doesn't currently support language parameter so it will always go to the next statement
 
+      var resource = null;
+      // Type or language are specific to ExecutableResource.
+      // VAST-Client doesn't currently support language parameter so it will always go to the next statement
       if (adVerification.language) {
         resource = {
           'ExecutableResource': {
@@ -379,36 +340,34 @@ var VASTClientSerializer = /*#__PURE__*/function () {
             '#': this.wrapCDATA(adVerification.resource)
           }
         };
-      } // Otherwise consider its a JavaScriptResource
+      }
+      // Otherwise consider its a JavaScriptResource
       else {
-          resource = {
-            'JavaScriptResource': {
-              '@apiFramework': adVerification.apiFramework,
-              '@browserOptional': adVerification.browserOptional,
-              '#': this.wrapCDATA(adVerification.resource)
-            }
-          };
-        }
-
+        resource = {
+          'JavaScriptResource': {
+            '@apiFramework': adVerification.apiFramework,
+            '@browserOptional': adVerification.browserOptional,
+            '#': this.wrapCDATA(adVerification.resource)
+          }
+        };
+      }
       return resource;
     }
+
     /**
      * Build a TrackingEvents node object
      * @param {Object} events An event object
      * @returns {Object} A Tracking node with all provided events
      */
-
   }, {
     key: "buildTrackingEvents",
     value: function buildTrackingEvents(events) {
       var _this4 = this;
-
       var trackingArray = [];
       Object.entries(events).forEach(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
-            key = _ref2[0],
-            urls = _ref2[1];
-
+          key = _ref2[0],
+          urls = _ref2[1];
         // Some event have the offset append to the name (ie: progress-15)
         // We need to split it in order to put them in the right place
         var event = key.split('-');
@@ -424,67 +383,60 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         'Tracking': trackingArray
       };
     }
+
     /**
      * Build a Extensions node
      * @param {Array[Object]} extensions An array of extension objects
      * @returns {Object} An array of Extension nodes
      */
-
   }, {
     key: "buildExtensions",
     value: function buildExtensions(extensions) {
       var _this5 = this;
-
       return {
         'Extension': extensions.map(function (extension) {
           return _this5.buildExtension(extension);
         })
       };
     }
+
     /**
      * Build a single Extension node
      * @param {Object} extension An extension object
      * @returns {Object} An Extension node
      */
-
   }, {
     key: "buildExtension",
     value: function buildExtension(extension) {
       var _this6 = this;
-
       var ext = {};
-
       if (extension.value !== null) {
         ext['#'] = this.wrapCDATA(extension.value);
       }
-
       Object.entries(extension.attributes).forEach(function (_ref3) {
         var _ref4 = _slicedToArray(_ref3, 2),
-            key = _ref4[0],
-            value = _ref4[1];
-
+          key = _ref4[0],
+          value = _ref4[1];
         ext["@".concat(key)] = value;
       });
       extension.children.forEach(function (child) {
         if (!ext[child.name]) {
           ext[child.name] = [];
         }
-
         ext[child.name].push(_this6.buildExtension(child));
       });
       return ext;
     }
+
     /**
      * Build Creative nodes
      * @param {Array[Object]} creatives An array of creative objects
      * @returns {Object} An array of Creative nodes
      */
-
   }, {
     key: "buildCreatives",
     value: function buildCreatives(creatives) {
       var _this7 = this;
-
       return {
         'Creative': creatives.map(function (creative) {
           return _objectSpread2(_objectSpread2({
@@ -497,19 +449,18 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         })
       };
     }
+
     /**
      * Build UniversalAdI node
      * @param {Object} universalAdId A universalAdId object
      * @returns {Object} An UniversalAdI node
      */
-
   }, {
     key: "buildUniversalAdId",
     value: function buildUniversalAdId(universalAdId) {
       if (!universalAdId) {
         return {};
       }
-
       return {
         'UniversalAdId': {
           '@idRegistry': universalAdId.idRegistry,
@@ -517,33 +468,31 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         }
       };
     }
+
     /**
      * Build CreativeExtension nodes
      * @param {Array[Object]} creativeExtensions An array of creativeExtensions objects
      * @returns {Object} An array of CreativeExtension nodes
      */
-
   }, {
     key: "buildCreativeExtensions",
     value: function buildCreativeExtensions(creativeExtensions) {
       var _this8 = this;
-
       if (!creativeExtensions) {
         return null;
       }
-
       return {
         'CreativeExtension': creativeExtensions.map(function (creativeExtension) {
           return _this8.buildExtension(creativeExtension);
         })
       };
     }
+
     /**
      * Build Creative node from it's type
      * @param {Object} creative A creative object
      * @returns {Object} Either a Linear, NonLinearAds, CompanionAds node
      */
-
   }, {
     key: "buildCreativeByType",
     value: function buildCreativeByType(creative) {
@@ -552,12 +501,10 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           return {
             'Linear': this.buildLinear(creative)
           };
-
         case 'nonlinear':
           return {
             'NonLinearAds': this.buildNonLinearAds(creative)
           };
-
         case 'companion':
           return {
             '@required': creative.required,
@@ -565,12 +512,12 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           };
       }
     }
+
     /**
      * Build Linear node from creative
      * @param {Object} creative A creative object
      * @returns {Object} A Linear node
      */
-
   }, {
     key: "buildLinear",
     value: function buildLinear(creative) {
@@ -584,46 +531,44 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         'Icons': this.buildIcons(creative.icons)
       };
     }
+
     /**
      * Build AdParameters node
      * @param {String} adParameters The adParameters string
      * @param {Boolean} xmlEncoded The xmlEncoded parameter
      * @returns {Object} A AdParameters node
      */
-
   }, {
     key: "buildAdParameters",
     value: function buildAdParameters(adParameters) {
       var xmlEncoded = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
       if (!adParameters) {
         return null;
       }
-
       return {
         '@xmlEncoded': xmlEncoded,
         '#': this.wrapCDATA(adParameters)
       };
     }
+
     /**
      * Build staticResource node
      * @param {String} staticResource The staticResource string
      * @param {String} creativeType The creativeType parameter
      * @returns {Object} A staticResource node
      */
-
   }, {
     key: "buildStaticRessource",
     value: function buildStaticRessource(staticResource, creativeType) {
       if (!staticResource) {
         return null;
       }
-
       return {
         '@creativeType': creativeType,
         '#': this.wrapCDATA(staticResource)
       };
     }
+
     /**
      * Build VideoClicks parameter node
      * @param {Object} clickThrough The clickThrough object
@@ -631,14 +576,11 @@ var VASTClientSerializer = /*#__PURE__*/function () {
      * @param {Array[Object]} customClicks The array of customClicks objects
      * @returns {Object} A VideoClicks node
      */
-
   }, {
     key: "buildVideoClicks",
     value: function buildVideoClicks(clickThrough, clickTrackings, customClicks) {
       var _this9 = this;
-
       var videoClicks = {};
-
       if (clickThrough) {
         var clickThroughObj = _typeof(clickThrough) === 'object' ? clickThrough : {
           url: clickThrough
@@ -650,7 +592,6 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           }
         });
       }
-
       if (clickTrackings !== null && clickTrackings !== void 0 && clickTrackings.length) {
         videoClicks = _objectSpread2(_objectSpread2({}, videoClicks), {}, {
           'ClickTracking': clickTrackings.map(function (clickTracking) {
@@ -661,7 +602,6 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           })
         });
       }
-
       if (customClicks !== null && customClicks !== void 0 && customClicks.length) {
         videoClicks = _objectSpread2(_objectSpread2({}, videoClicks), {}, {
           'CustomClick': customClicks.map(function (customClick) {
@@ -672,9 +612,9 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           })
         });
       }
-
       return Object.keys(videoClicks).length ? videoClicks : null;
     }
+
     /**
      * Build Mediafiles node
      * @param {Array[Object]} mediaFiles The list of mediafiles objects
@@ -683,14 +623,11 @@ var VASTClientSerializer = /*#__PURE__*/function () {
      * @param {String} closedCaptionFiles The closedCaptionFiles object
      * @returns {Object} A Mediafiles node
      */
-
   }, {
     key: "buildMediafiles",
     value: function buildMediafiles(mediaFiles, mezzanine, interactiveCreativeFile, closedCaptionFiles) {
       var _this10 = this;
-
       var mediaFilesObject = {};
-
       if (mediaFiles) {
         mediaFilesObject = _objectSpread2(_objectSpread2({}, mediaFilesObject), {}, {
           'MediaFile': mediaFiles.map(function (mediaFile) {
@@ -714,7 +651,6 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           })
         });
       }
-
       if (mezzanine) {
         mediaFilesObject = _objectSpread2(_objectSpread2({}, mediaFilesObject), {}, {
           'Mezzanine': {
@@ -730,7 +666,6 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           }
         });
       }
-
       if (interactiveCreativeFile !== null && interactiveCreativeFile !== void 0 && interactiveCreativeFile.fileURL) {
         mediaFilesObject = _objectSpread2(_objectSpread2({}, mediaFilesObject), {}, {
           'InteractiveCreativeFile': {
@@ -741,7 +676,6 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           }
         });
       }
-
       if (closedCaptionFiles !== null && closedCaptionFiles !== void 0 && closedCaptionFiles.length) {
         mediaFilesObject = _objectSpread2(_objectSpread2({}, mediaFilesObject), {}, {
           'ClosedCaptionFiles': {
@@ -755,24 +689,21 @@ var VASTClientSerializer = /*#__PURE__*/function () {
           }
         });
       }
-
       return mediaFilesObject;
     }
+
     /**
      * Build Icons node. IconClickFallbackImages children not supported.
      * @param {Array[Object]} icons The list of icons objects
      * @returns {Object} A Icons node
      */
-
   }, {
     key: "buildIcons",
     value: function buildIcons(icons) {
       var _this11 = this;
-
       if (!(icons !== null && icons !== void 0 && icons.length)) {
         return null;
       }
-
       return {
         'Icon': icons.map(function (icon) {
           var staticResource = !icon.staticResource ? {} : {
@@ -811,24 +742,22 @@ var VASTClientSerializer = /*#__PURE__*/function () {
                   }
                 })
               },*/
-
             },
             'IconViewTracking': _this11.wrapCDATA(icon.iconViewTrackingURLTemplate)
           }, staticResource);
         })
       };
     }
+
     /**
      * Build a NonLinearAds node object
      * @param {Object} creative A creative object
      * @returns {Object} A NonLinearAds node containing a list of NonLinear nodes
      */
-
   }, {
     key: "buildNonLinearAds",
     value: function buildNonLinearAds(creative) {
       var _this12 = this;
-
       return {
         'NonLinear': creative.variations.map(function (variation) {
           return {
@@ -854,17 +783,16 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         'TrackingEvents': this.buildTrackingEvents(creative.trackingEvents)
       };
     }
+
     /**
      * Build a CompanionAds node object
      * @param {Object} creative A creative object
      * @returns {Object} A CompanionAds node containing a list of Companion nodes
      */
-
   }, {
     key: "buildCompanionAds",
     value: function buildCompanionAds(creative) {
       var _this13 = this;
-
       return {
         'Companion': creative.variations.map(function (variation) {
           return {
@@ -904,48 +832,44 @@ var VASTClientSerializer = /*#__PURE__*/function () {
         })
       };
     }
+
     /**
      * Convert given number into HH:MM:SS format
      * @param {String|Number} number The number to convert
      * @returns {String} The number on HH:MM:SS format
      */
-
   }, {
     key: "convertToHHMMSS",
     value: function convertToHHMMSS(number) {
       if (!number) {
         return null;
-      } // Some values are in percentage, we don't need to convert them
+      }
 
-
+      // Some values are in percentage, we don't need to convert them
       if (typeof number === 'string' && number.endsWith('%')) {
         return number;
       }
-
       var measuredTime = new Date(null);
       measuredTime.setSeconds(parseInt(number));
       return measuredTime.toISOString().substr(11, 8);
     }
+
     /**
      * Wrap given data into specific CDATA format for xmlbuilder2
      * @param {Any} data The data to wrap
      * @returns {Object} Specific CDATA wrapper for xmlbuilder2
      */
-
   }, {
     key: "wrapCDATA",
     value: function wrapCDATA(data) {
       if (data === null || data === undefined) {
         return null;
       }
-
       return {
         '$': data
       };
     }
   }]);
-
-  return VASTClientSerializer;
 }();
 
 module.exports = VASTClientSerializer;
