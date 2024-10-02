@@ -372,10 +372,10 @@ export default class VASTClientSerializer {
     return {
       '@skipoffset': this.convertToHHMMSS(creative.skipDelay),
       'Duration': this.convertToHHMMSS(creative.duration),
-      'AdParameters': this.buildAdParameters(
+      'AdParameters': creative.adParameters ? this.buildAdParameters(
         creative.adParameters.value,
         creative.adParameters.xmlEncoded
-      ),
+      ): null,
       'MediaFiles': this.buildMediafiles(
         creative.mediaFiles,
         creative.mezzanine,
