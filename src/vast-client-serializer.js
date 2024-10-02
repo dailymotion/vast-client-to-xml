@@ -298,7 +298,7 @@ export default class VASTClientSerializer {
           '@adId': creative.adId,
           '@apiFramework': creative.apiFramework,
           'CreativeExtensions': this.buildCreativeExtensions(creative.creativeExtensions),
-          ...this.buildUniversalAdId(creative.universalAdId),
+          'UniversalAdId': this.buildUniversalAdId(creative.universalAdIds),
           ...this.buildCreativeByType(creative)
         }
       }),
@@ -307,20 +307,18 @@ export default class VASTClientSerializer {
 
   /**
    * Build UniversalAdI node
-   * @param {Object} universalAdId A universalAdId object
-   * @returns {Object} An UniversalAdI node
+   * @param {Array<Object>} universalAdIds A universalAdId object array
+   * @returns {Array<Object> | null} An UniversalAdId node array
    */
-  buildUniversalAdId(universalAdId) {
-    if (!universalAdId) {
-      return {}
+  buildUniversalAdId(universalAdIds) {
+    if (!universalAdIds.length) {
+      return null;
     }
 
-    return {
-      'UniversalAdId': {
-        '@idRegistry': universalAdId.idRegistry,
-        '#': universalAdId.value,
-      }
-    }
+    return universalAdIds.map((universalAdId) => ({
+      "@idRegistry": universalAdId.idRegistry,
+      "#": universalAdId.value,
+    }));
   }
 
   /**
