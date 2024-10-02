@@ -439,34 +439,35 @@ var VASTClientSerializer = /*#__PURE__*/function () {
       var _this7 = this;
       return {
         'Creative': creatives.map(function (creative) {
-          return _objectSpread2(_objectSpread2({
+          return _objectSpread2({
             '@id': creative.id,
             '@sequence': creative.sequence,
             '@adId': creative.adId,
             '@apiFramework': creative.apiFramework,
-            'CreativeExtensions': _this7.buildCreativeExtensions(creative.creativeExtensions)
-          }, _this7.buildUniversalAdId(creative.universalAdId)), _this7.buildCreativeByType(creative));
+            'CreativeExtensions': _this7.buildCreativeExtensions(creative.creativeExtensions),
+            'UniversalAdId': _this7.buildUniversalAdId(creative.universalAdIds)
+          }, _this7.buildCreativeByType(creative));
         })
       };
     }
 
     /**
      * Build UniversalAdI node
-     * @param {Object} universalAdId A universalAdId object
-     * @returns {Object} An UniversalAdI node
+     * @param {Array<Object>} universalAdIds A universalAdId object array
+     * @returns {Array<Object> | null} An UniversalAdId node array
      */
   }, {
     key: "buildUniversalAdId",
-    value: function buildUniversalAdId(universalAdId) {
-      if (!universalAdId) {
-        return {};
+    value: function buildUniversalAdId(universalAdIds) {
+      if (!universalAdIds.length) {
+        return null;
       }
-      return {
-        'UniversalAdId': {
-          '@idRegistry': universalAdId.idRegistry,
-          '#': universalAdId.value
-        }
-      };
+      return universalAdIds.map(function (universalAdId) {
+        return {
+          "@idRegistry": universalAdId.idRegistry,
+          "#": universalAdId.value
+        };
+      });
     }
 
     /**
