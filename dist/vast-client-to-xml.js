@@ -524,7 +524,7 @@ var VASTClientSerializer = /*#__PURE__*/function () {
       return {
         '@skipoffset': this.convertToHHMMSS(creative.skipDelay),
         'Duration': this.convertToHHMMSS(creative.duration),
-        'AdParameters': this.buildAdParameters(creative.adParameters),
+        'AdParameters': this.buildAdParameters(creative.adParameters.value, creative.adParameters.xmlEncoded),
         'MediaFiles': this.buildMediafiles(creative.mediaFiles, creative.mezzanine, creative.interactiveCreativeFile, creative.closedCaptionFiles),
         'VideoClicks': this.buildVideoClicks(creative.videoClickThroughURLTemplate, creative.videoClickTrackingURLTemplates, creative.videoCustomClickURLTemplates),
         'TrackingEvents': this.buildTrackingEvents(creative.trackingEvents),
